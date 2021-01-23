@@ -10,7 +10,6 @@ const connection = mysql.createConnection({
   user: "root",
   // Your password
   password: "LS2jNHzXtr[LQB&+4I#y",
-
   database: "business_DB",
 });
 
@@ -252,8 +251,6 @@ function init() {
           "View All Employees",
           "View Roles",
           "View Departments",
-          "View All Employees By Department",
-          "View All Employees By Role",
           "Add Employee",
           "Update Employee Role",
           "Add Role",
@@ -262,7 +259,7 @@ function init() {
         ],
       },
     ])
-    .then(({ welcomePrompt }) => {
+    .then(({welcomePrompt}) => {
       switch (welcomePrompt) {
         case "View All Employees":
           viewEmployees();
