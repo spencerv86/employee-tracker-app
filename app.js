@@ -72,14 +72,14 @@ function addEmployee() {
     };
     managers.push({name: 'None', value: 0});
     // managers.push(data.managers);
-    console.log(managers);
+    // console.log(managers);
   });
   connection.query(roleQuery, (err, data) => {
     if (err) throw err;
     for (let i = 0; i < data.length; i++){
       roles.push({name: data[i].title, value: data[i].id});
     };
-    console.log(roles);
+    // console.log(roles);
   })
   inquirer.prompt([
     {
@@ -108,10 +108,54 @@ function addEmployee() {
     const queryString = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);`;
     connection.query(queryString, [res.first_name, res.last_name, res.role, res.manager], (err, data) => {
       if (err) throw err;
+      console.log("This employee has been added.")
       init();
     });
   });
 };
+
+function addRole() {
+  const deptQuery = `SELECT name AS "departments", id FROM department;`;
+  const departments = [];
+  connection.query(deptQuery, (err, data) => {
+    for (let i = 0; i < data.length; i++){
+      departments.push({name: data[i].departments, value: data[i].id});
+    };
+    console.log(departments);
+  });
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "What is this role's title?",
+      name: "title",
+    },
+    {
+      type: "input",
+      message: "What is this position's salary? (please enter in 12.345 format by the thousand)",
+      name: "salary",
+      validation: function (input) {
+        if (input.length < 5){
+          return true;
+        } else {
+          return "That is an invalid salary.";
+        };
+      }
+    },
+    {
+      type: "list",
+      message: "What department will this role fall under?",
+      name: "dept_id",
+      choices: departments,
+    },
+  ]).then((res) => {
+    const queryString = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?);`;
+    connection.query(queryString, [res.title, res.salary, res.dept_id], (err) => {
+      if (err) throw err;
+      console.log("This role has been added.");
+      init();
+    })
+  })
+}
 
 function exitApp() {
   console.log("See ya later!");
