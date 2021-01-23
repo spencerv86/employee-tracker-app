@@ -49,6 +49,19 @@ function viewRoles() {
   });
 };
 
+function viewDepartments() {
+  queryString = `
+  SELECT name AS "Department Name"
+  FROM department;`;
+  connection.query(queryString, (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    init();
+  });
+};
+
+
+
 function exitApp() {
   console.log("See ya later!");
   connection.end();
@@ -63,8 +76,8 @@ function init() {
         name: "welcomePrompt",
         choices: [
           "View All Employees",
-          "View All Roles",
-          "View All Departments",
+          "View Roles",
+          "View Departments",
           "View All Employees By Department",
           "View All Employees By Role",
           "Add Employee",
@@ -81,11 +94,11 @@ function init() {
           viewEmployees();
           break;
 
-        case "View All Roles":
+        case "View Roles":
           viewRoles();
           break;
 
-        case "View All Departments":
+        case "View Departments":
           viewDepartments();
           break;
 
