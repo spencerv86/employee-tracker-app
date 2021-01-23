@@ -30,7 +30,7 @@ To use the application, navigate into the repository in your terminal and run th
 
 You will be able to choose between several prompts to view, add or update the employees, roles and departments within the company's database. Choosing view " " will display all the data for the chosen field.
 
-![Demo Screenshot](./Assets/images/CLI_screenshot.png)
+![Demo Screenshot](./Assets/Images/CLI_screenshot.png)
 
 For a video demo of the application in action, please click the link below.
 
