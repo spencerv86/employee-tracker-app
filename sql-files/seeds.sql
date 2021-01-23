@@ -5,12 +5,12 @@ VALUES ("Marketing"),
 ("Human Resources");
 
 INSERT INTO role (title, salary, department_id)
-VALUES ("Creative Director", 75.375, 1),
-("Junior Copywriter", 35.430, 1),
-("Salesperson", 45.500, 2),
-("Head Accountant", 63.200, 3),
-("Junior Accountant", 42.320, 3),
-("HR Rep", 49.240, 4);
+VALUES ("Creative Director", 75375, 1),
+("Junior Copywriter", 35430, 1),
+("Salesperson", 45500, 2),
+("Head Accountant", 63200, 3),
+("Junior Accountant", 42320, 3),
+("HR Rep", 49240, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES ("Joy", "Schmidt", 3, 0),
