@@ -108,7 +108,7 @@ function addEmployee() {
     const queryString = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?);`;
     connection.query(queryString, [res.first_name, res.last_name, res.role, res.manager], (err, data) => {
       if (err) throw err;
-      console.log("This employee has been added.")
+      console.log(`${res.first_name} ${res.last_name} has been added as a new ${res.role}.`)
       init();
     });
   });
@@ -121,7 +121,7 @@ function addRole() {
     for (let i = 0; i < data.length; i++){
       departments.push({name: data[i].departments, value: data[i].id});
     };
-    console.log(departments);
+    // console.log(departments);
   });
   inquirer.prompt([
     {
@@ -151,13 +151,28 @@ function addRole() {
     const queryString = `INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?);`;
     connection.query(queryString, [res.title, res.salary, res.dept_id], (err) => {
       if (err) throw err;
-      console.log("This role has been added.");
+      console.log(`${res.title} has been added as a new role.`);
       init();
     })
   });
 };
 
-
+function addDept() {
+  inquirer.prompt([
+    {
+      type: "input",
+      message: "What is this department's name?",
+      name: "dept_name",
+    },
+  ]).then((res) => {
+    const queryString = `INSERT INTO department (name) VALUES (?);`;
+    connection.query(queryString, [res.dept_name], (err) => {
+      if (err) throw err;
+      console.log(`The ${res.dept_name} department has been added.`)
+      init();
+    })
+  });
+};
 
 function exitApp() {
   console.log("See ya later!");
