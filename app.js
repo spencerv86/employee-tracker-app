@@ -3,42 +3,50 @@ const inquirer = require("inquirer");
 const cTable = require("console.table");
 
 const connection = mysql.createConnection({
-    host: "localhost",
-    // Your port; if not 3306
-    port: 3306,
-    // Your username
-    user: "root",
-    // Your password
-    password: "LS2jNHzXtr[LQB&+4I#y",
+  host: "localhost",
+  // Your port; if not 3306
+  port: 3306,
+  // Your username
+  user: "root",
+  // Your password
+  password: "LS2jNHzXtr[LQB&+4I#y",
 
-    database: "business_DB",
-  });
+  database: "business_DB",
+});
 
-  connection.connect(function (err) {
-    if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
-    init();
-  });
+connection.connect(function (err) {
+  if (err) throw err;
+  console.log("connected as id " + connection.threadId + "\n");
+  init();
+});
 
+function exitApp() {
+  console.log("See ya later!");
+  connection.end();
+}
 
-  function init() {
-    inquirer.prompt([
+function init() {
+  inquirer
+    .prompt([
       {
         type: "list",
         message: "What would you like to do?",
         name: "welcomePrompt",
-        choices: ["View All Employees",
-        "View All Roles",
-        "View All Departments", 
-        "View All Employees By Department", 
-        "View All Employees By Role", 
-        "Add Employee", 
-        "Update Employee Role", 
-        "Add Role", 
-        "Add Department",
-        "Exit Tracker"],
+        choices: [
+          "View All Employees",
+          "View All Roles",
+          "View All Departments",
+          "View All Employees By Department",
+          "View All Employees By Role",
+          "Add Employee",
+          "Update Employee Role",
+          "Add Role",
+          "Add Department",
+          "Exit Tracker",
+        ],
       },
-    ]).then(({welcomePrompt}) => {
+    ])
+    .then(({ welcomePrompt }) => {
       switch (welcomePrompt) {
         case "View All Employees":
           viewEmployees();
@@ -47,7 +55,7 @@ const connection = mysql.createConnection({
         case "View All Roles":
           viewRoles();
           break;
-        
+
         case "View All Departments":
           viewDepartments();
           break;
@@ -55,7 +63,7 @@ const connection = mysql.createConnection({
         case "View All Employees By Department":
           viewEmpDepts();
           break;
-        
+
         case "View All Employees By Role":
           viewEmpRoles();
           break;
@@ -79,7 +87,5 @@ const connection = mysql.createConnection({
         default:
           exitApp();
       }
-    })
-
-  };
-  
+    });
+}
