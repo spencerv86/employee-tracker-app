@@ -20,6 +20,23 @@ connection.connect(function (err) {
   init();
 });
 
+function viewEmployees() {
+  queryString = 
+  `SELECT CONCAT(employee.first_name," ", employee.last_name) AS "Employee", role.title AS "Job", role.salary AS "Salary", department.name AS "Dept.", IFNULL(CONCAT(mgmt.first_name," ",mgmt.last_name),"Department Lead") AS "Manager Name"
+  FROM employee
+  INNER JOIN role
+  ON role.id = employee.role_id
+  INNER JOIN department
+  ON department.id = role.department_id
+  LEFT JOIN employee mgmt
+  ON employee.manager_id = mgmt.id;`;
+  connection.query(queryString, (err, data) => {
+    if (err) throw err;
+    console.table(data);
+    init();
+  });
+};
+
 function exitApp() {
   console.log("See ya later!");
   connection.end();
