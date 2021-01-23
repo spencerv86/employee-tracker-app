@@ -131,10 +131,10 @@ function addRole() {
     },
     {
       type: "input",
-      message: "What is this position's salary? (please enter in 12.345 format by the thousand)",
+      message: "What is this position's salary? (please enter number with no punctuation)",
       name: "salary",
       validation: function (input) {
-        if (input.length < 5){
+        if (/^\d+$/.test(input)){
           return true;
         } else {
           return "That is an invalid salary.";
@@ -154,8 +154,10 @@ function addRole() {
       console.log("This role has been added.");
       init();
     })
-  })
-}
+  });
+};
+
+
 
 function exitApp() {
   console.log("See ya later!");
